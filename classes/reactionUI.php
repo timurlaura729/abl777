@@ -39,6 +39,7 @@ class reactionUI extends PDO
         $id=$this->iduser;
         $stmt = $this->query("SELECT * FROM auth where iduser=$id and active=1 and dt<'$d'");
         $row = $stmt->fetch();
+        $this->saveToBase($d."    ".$row['dt']);
         //$str=$row['iduser']."   ".$row['dt'];
         $str=$row['id'];
         return $str;
