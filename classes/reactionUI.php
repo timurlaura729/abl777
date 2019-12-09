@@ -74,13 +74,13 @@ class reactionUI extends PDO
             if ((int)$this->getAuth()>0)
             {
                 $this->saveLog();
-                $this->sendMessage('Продолжим'.$this->getAuth(),$buttons = null);
+                $this->sendMessage('Продолжим',$buttons = null);
             }
             else {
                 $this->saveLog();
                 $this->saveAuth();
-                $this->sendMessage('Здравствуйте'.$this->getAuth(), $buttons = null);
-                $this->saveToBase($this->getAuth());
+                $this->sendMessage('Здравствуйте', $buttons = null);
+                //$this->saveToBase($this->getAuth());
             }
         }
     }
