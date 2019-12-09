@@ -78,7 +78,7 @@ class reactionUI extends PDO
 
     function saveMessage()
     {
-        if ($this->access==1) {
+        //if ($this->access==1) {
             if ((int)$this->getAuth()>0)
             {
                 $this->saveLog();
@@ -99,7 +99,7 @@ class reactionUI extends PDO
                 $this->sendMessage('Введите УИК ', $buttons = null);
                 //$this->saveToBase($this->getAuth());
             }
-        }
+        //}
     }
 
     function sendMessage($message,$buttons = null) {
