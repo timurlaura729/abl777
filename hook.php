@@ -13,5 +13,6 @@ $ms=$data['message']['text'];
 // подключаем наш единственный класс. Однояйцевый недоблизнец
 require_once("classes/reactionUI.php");
 $reactionUI = new reactionUI($unm, $uid, $idmsg, $dt, $ms);
+// Запускаем динамо машину
 $reactionUI->StartReaction();
 ?>

@@ -1,6 +1,7 @@
 <?php
 class reactionUI extends PDO
 {
+    // Глобальные переменные
 	public $user;
 	public $iduser;
 	public $idmsg;
@@ -10,11 +11,15 @@ class reactionUI extends PDO
 	public $url;
 	public $maenu1;
 
+	// Создадим конструктор ебаный Лего
 	public function __construct($unm, $uid, $idmsg, $dt, $ms, $file = 'my_setting.ini')
     {
+        // парсим файл подключения
         if (!$settings = parse_ini_file($file, TRUE)) throw new exception('Unable11 to open ' . $file . '.');
+        // Создаем подключение к БД
         $dns = $settings['database']['driver'].':host=' . $settings['database']['host'].((!empty($settings['database']['port'])) ? (';port=' . $settings['database']['port']) : '').';dbname='.$settings['database']['schema'];
         parent::__construct($dns, $settings['database']['username'], $settings['database']['password']);
+        // Объявляем глобальные переменные
         $this->access=0;
         $this->url='https://api.telegram.org/bot1059041833:AAHi7sjrHjDh97eWhF266jTvlkua3glSJ90/sendMessage';
         $this->menu1=[["Да"],["Нет"]];
@@ -23,14 +28,16 @@ class reactionUI extends PDO
         $this->idmsg=$idmsg;
         $this->dt=$dt;
         $this->ms=$ms;
+        // Проверка на пользователя. Оставь надежду всяк сюда входящий
         if ($this->user=='Тимур') $this->access=1;
     }
 
+    // Взять id авторизации
 	function getAuth()
     {
-        //$str='';
+        $d=date("Y-m-d H:i:s", strtotime("+1 minutes"));
         $id=$this->iduser;
-        $stmt = $this->query("SELECT * FROM auth where iduser=$id and active=1");
+        $stmt = $this->query("SELECT * FROM auth where iduser=$id and active=1 and dt<'$d'");
         $row = $stmt->fetch();
         //$str=$row['iduser']."   ".$row['dt'];
         $str=$row['id'];
@@ -80,7 +87,7 @@ class reactionUI extends PDO
                 $this->saveLog();
                 switch ($this->ms)
                 {
-                    case "Да": $this->sendMessage('Объекты выдан',$buttons = null); $this->DeleteAuth(); break;
+                    case "Да": $this->sendMessage('Набор выдан',$buttons = null); $this->DeleteAuth(); break;
                     case "Нет": $this->sendMessage('Запрос откланен',$buttons = null); $this->DeleteAuth(); break;
                     default:
                         {
