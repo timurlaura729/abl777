@@ -30,11 +30,12 @@ class reactionUI extends PDO
 
 	function getAuth()
     {
-        $str='';
+        //$str='';
         $id=$this->iduser;
-        $stmt = $this->query("SELECT * FROM auth where iduser=$id");
+        $stmt = $this->query("SELECT * FROM auth where iduser=$id and active=1");
         $row = $stmt->fetch();
-        $str=$row['iduser']."   ".$row['dt'];
+        //$str=$row['iduser']."   ".$row['dt'];
+        $str=$row['id'];
         return $str;
 
     }
@@ -70,10 +71,17 @@ class reactionUI extends PDO
     function saveMessage()
     {
         if ($this->access==1) {
-            $this->saveLog();
-            $this->saveAuth();
-            $this->sendMessage('Здравствуйте',$buttons = null);
-            $this->saveToBase($this->getAuth());
+            if ((int)$this->getAuth()>0)
+            {
+                $this->saveLog();
+                $this->sendMessage('Продолжим'.$this->getAuth(),$buttons = null);
+            }
+            else {
+                $this->saveLog();
+                $this->saveAuth();
+                $this->sendMessage('Здравствуйте'.$this->getAuth(), $buttons = null);
+                $this->saveToBase($this->getAuth());
+            }
         }
     }
 
