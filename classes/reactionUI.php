@@ -79,14 +79,13 @@ class reactionUI extends PDO
             else {
                 $this->saveLog();
                 $this->saveAuth();
-                $this->sendMessage('Здравствуйте', $buttons = null);
+                $this->sendMessage('Здравствуйте '.$this->user."!", $buttons = null);
                 //$this->saveToBase($this->getAuth());
             }
         }
     }
 
     function sendMessage($message,$buttons = null) {
-
         $data = array(
             'text' => $message,
             'chat_id' => $this->iduser
