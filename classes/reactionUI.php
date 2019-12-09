@@ -85,10 +85,10 @@ class reactionUI extends PDO
                 switch ($this->ms)
                 {
                     case "Да": $this->sendMessage('Объекты выдан',$buttons = null); $this->DeleteAuth(); break;
-                    case "Нет": $this->sendMessage('Не выдавать',$buttons = null); $this->DeleteAuth(); break;
+                    case "Нет": $this->sendMessage('Запрос откланен',$buttons = null); $this->DeleteAuth(); break;
                     default:
                         {
-                            $this->sendMessage('Уик с таким именем существует',$buttons = null);
+                            $this->sendMessage('Да, такой УИК есть, можно выдать набор',$buttons = null);
                             $this->sendMessage('Выдать набор?',$buttons = $this->menu1);
                         }
                 }
