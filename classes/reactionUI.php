@@ -35,7 +35,7 @@ class reactionUI extends PDO
 	
 		function saveMessage()
     {
-      //  if ($this->access==1) {
+        if ($this->access==1) {
             $id_message = $this->idmsg;
             $id_user = $this->iduser;
             $uname = $this->user;
@@ -44,7 +44,7 @@ class reactionUI extends PDO
             $sql = "INSERT INTO lids (id_message, id_user, uname, date, msg) VALUES ($id_message, '$id_user', '$uname', '$date', '$msg')";
             $query = $this->prepare($sql);
             $query->execute();
-      //  }
+        }
     }
 	
 	
