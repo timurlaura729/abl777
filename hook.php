@@ -7,10 +7,10 @@ $uid=$data['message']['from']['id'];
 $unm=$data['message']['from']['first_name'];
 $dt=date("Y-m-d H:i:s", $data['message']['date']);
 $ms=$data['message']['text'];
-$msg= print_r($data, true);
+//$msg= print_r($data, true);
 require_once("classes/reactionUI.php");
 $reactionUI = new reactionUI();
-$reactionUI->saveToBase($msg);
+//$reactionUI->saveToBase($msg);
 $reactionUI->inital($unm, $uid, $idmsg, $dt, $ms);
 $reactionUI->saveMessage();
 ?>
