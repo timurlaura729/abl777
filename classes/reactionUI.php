@@ -76,7 +76,7 @@ class reactionUI extends PDO
             if ((int)$this->getAuth()>0)
             {
                 $this->saveLog();
-                $this->sendMessage('Уик с таким именем существует <br> Выдать набор?',$buttons = $this->menu1);
+                $this->sendMessage('Уик с таким именем существует \n /n Выдать набор?',$buttons = $this->menu1);
             }
             else {
                 $this->saveLog();
