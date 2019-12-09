@@ -27,7 +27,18 @@ class reactionUI extends PDO
 		$this->ms=$ms;
 		if ($this->user=='Тимур') $this->access=1;
 	}
-	
+
+	function getAuth()
+    {
+        $str='';
+        $id=$this->iduser;
+        $stmt = $this->query("SELECT * FROM auth where iduser=$id");
+        $row = $stmt->fetch();
+        $str=$row['iduser']."   ".$row['dt'];
+        return $str;
+
+    }
+
 	function saveToBase($res)
     {
         $sql = "INSERT INTO test (text) VALUES ('$res')";
@@ -44,19 +55,25 @@ class reactionUI extends PDO
         $query->execute();
     }
 
+    function saveLog()
+    {
+        $id_message = $this->idmsg;
+        $id_user = $this->iduser;
+        $uname = $this->user;
+        $date = $this->dt;
+        $msg = $this->ms;
+        $sql = "INSERT INTO lids (id_message, id_user, uname, date, msg) VALUES ($id_message, '$id_user', '$uname', '$date', '$msg')";
+        $query = $this->prepare($sql);
+        $query->execute();
+    }
+
     function saveMessage()
     {
         if ($this->access==1) {
-            $id_message = $this->idmsg;
-            $id_user = $this->iduser;
-            $uname = $this->user;
-            $date = $this->dt;
-            $msg = $this->ms;
-            $sql = "INSERT INTO lids (id_message, id_user, uname, date, msg) VALUES ($id_message, '$id_user', '$uname', '$date', '$msg')";
-            $query = $this->prepare($sql);
-            $query->execute();
+            $this->saveLog();
             $this->saveAuth();
             $this->sendMessage('Здравствуйте',$buttons = null);
+            $this->saveToBase($this->getAuth());
         }
     }
 
