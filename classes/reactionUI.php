@@ -8,6 +8,7 @@ class reactionUI extends PDO
 	public $ms;
 	public $access;
 	public $url;
+	public $maenu1;
 
 	public function __construct($file = 'my_setting.ini')
     {
@@ -16,6 +17,7 @@ class reactionUI extends PDO
         parent::__construct($dns, $settings['database']['username'], $settings['database']['password']);
         $this->access=0;
         $this->url='https://api.telegram.org/bot1059041833:AAHi7sjrHjDh97eWhF266jTvlkua3glSJ90/sendMessage';
+        $this->menu1=[["Да"],["Нет"],["Выйти"]];
     }
 
 	public function inital($unm, $uid, $idmsg, $dt, $ms)
@@ -74,12 +76,12 @@ class reactionUI extends PDO
             if ((int)$this->getAuth()>0)
             {
                 $this->saveLog();
-                $this->sendMessage('Продолжим',$buttons = null);
+                $this->sendMessage('Уик с таким именем существует <br> Выдать набор?',$buttons = $this->menu1);
             }
             else {
                 $this->saveLog();
                 $this->saveAuth();
-                $this->sendMessage('Здравствуйте '.$this->user."!", $buttons = null);
+                $this->sendMessage('Введите УИК ', $buttons = null);
                 //$this->saveToBase($this->getAuth());
             }
         }
