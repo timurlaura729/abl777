@@ -17,7 +17,7 @@ class reactionUI extends PDO
         parent::__construct($dns, $settings['database']['username'], $settings['database']['password']);
         $this->access=0;
         $this->url='https://api.telegram.org/bot1059041833:AAHi7sjrHjDh97eWhF266jTvlkua3glSJ90/sendMessage';
-        $this->menu1=[["Да"],["Нет"],["Выйти"]];
+        $this->menu1=[["Да"],["Нет"]];
     }
 
 	public function inital($unm, $uid, $idmsg, $dt, $ms)
@@ -39,7 +39,13 @@ class reactionUI extends PDO
         //$str=$row['iduser']."   ".$row['dt'];
         $str=$row['id'];
         return $str;
+    }
 
+    function DeleteAuth()
+    {
+        $sql = "delete from auth where id=".$this->getAuth();
+        $query = $this->prepare($sql);
+        $query->execute();
     }
 
 	function saveToBase($res)
@@ -78,7 +84,8 @@ class reactionUI extends PDO
                 $this->saveLog();
                 switch ($this->ms)
                 {
-                    case "Да": $this->sendMessage('Объекты выдан',$buttons = null); break;
+                    case "Да": $this->sendMessage('Объекты выдан',$buttons = null); $this->DeleteAuth(); break;
+                    case "Нет": $this->sendMessage('Не выдавать',$buttons = null); $this->DeleteAuth(); break;
                     default:
                         {
                             $this->sendMessage('Уик с таким именем существует',$buttons = null);
