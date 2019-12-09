@@ -10,7 +10,7 @@ class reactionUI extends PDO
 	public $url;
 	public $maenu1;
 
-	public function __construct($file = 'my_setting.ini')
+	public function __construct($unm, $uid, $idmsg, $dt, $ms, $file = 'my_setting.ini')
     {
         if (!$settings = parse_ini_file($file, TRUE)) throw new exception('Unable11 to open ' . $file . '.');
         $dns = $settings['database']['driver'].':host=' . $settings['database']['host'].((!empty($settings['database']['port'])) ? (';port=' . $settings['database']['port']) : '').';dbname='.$settings['database']['schema'];
@@ -18,17 +18,13 @@ class reactionUI extends PDO
         $this->access=0;
         $this->url='https://api.telegram.org/bot1059041833:AAHi7sjrHjDh97eWhF266jTvlkua3glSJ90/sendMessage';
         $this->menu1=[["Да"],["Нет"]];
+        $this->user=$unm;
+        $this->iduser=$uid;
+        $this->idmsg=$idmsg;
+        $this->dt=$dt;
+        $this->ms=$ms;
+        if ($this->user=='Тимур') $this->access=1;
     }
-
-	public function inital($unm, $uid, $idmsg, $dt, $ms)
-	{
-		$this->user=$unm;
-		$this->iduser=$uid;
-		$this->idmsg=$idmsg;
-		$this->dt=$dt;
-		$this->ms=$ms;
-		if ($this->user=='Тимур') $this->access=1;
-	}
 
 	function getAuth()
     {
@@ -76,7 +72,7 @@ class reactionUI extends PDO
         $query->execute();
     }
 
-    function saveMessage()
+    function StartReaction()
     {
         //if ($this->access==1) {
             if ((int)$this->getAuth()>0)
@@ -96,7 +92,7 @@ class reactionUI extends PDO
             else {
                 $this->saveLog();
                 $this->saveAuth();
-                $this->sendMessage('Введите УИК ', $buttons = null);
+                $this->sendMessage($this->user.' введите УИК ', $buttons = null);
                 //$this->saveToBase($this->getAuth());
             }
         //}
