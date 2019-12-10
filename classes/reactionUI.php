@@ -102,7 +102,7 @@ class reactionUI extends PDO
                     $this->saveLog();
                     $this->saveAuth();
                     $this->sendMessage($this->user . ' введите УИК ', $buttons = null);
-                }
+                } else $this->sendMessage($this->user . ' бот не слушает ваши команды. Авторизуйтесь и выполните их снова', $buttons = null);
             }
     }
 
