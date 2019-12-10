@@ -37,10 +37,10 @@ class reactionUI extends PDO
     {
         $d=date("Y-m-d H:i:s", strtotime("+1 minutes"));
         $id=$this->iduser;
-        $stmt = $this->query("SELECT * FROM auth where iduser=$id and active=1 and dt<'$d'");
+        $stmt = $this->query("SELECT * FROM auth where iduser=$id and active=1 and dt> NOW() - INTERVAL 2 MINUTE");
         $row = $stmt->fetch();
         // проверить
-        $this->saveToBase($d."    ".$row['dt']);
+        //$this->saveToBase($d."    ".$row['dt']);
         //$str=$row['iduser']."   ".$row['dt'];
         $str=$row['id'];
         return $str;
