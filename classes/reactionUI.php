@@ -29,7 +29,7 @@ class reactionUI extends PDO
         $this->dt=$dt;
         $this->ms=$ms;
         // Проверка на пользователя. Оставь надежду всяк сюда входящий
-        if ($this->user=='Тимур') $this->access=1;
+        if ($this->ms=='777') $this->access=1;
     }
 
     // Взять id авторизации
